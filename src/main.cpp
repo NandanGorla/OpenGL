@@ -1,20 +1,24 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb/stb_image.h>
 #include "Header/shaderClass.h"
 #include "Header/VAO.h"
 #include "Header/VBO.h"
 #include "Header/EBO.h"
 
 GLfloat vertices[] =
-{
-    -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-     0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-     0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
+{ //     COORDINATES     /        COLORS      /   TexCoord  //
+    -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
+    -0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
+     0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
+     0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
 };
+
 GLuint indices[] =
 {
-    0, 1, 2
+    0, 2, 1, // Upper triangle
+    0, 3, 2 // Lower triangle
 };
 
 int main()
@@ -32,13 +36,14 @@ int main()
     //creat a GLFW window object
     GLFWwindow* window = glfwCreateWindow(800,800,//Height and width of window
                                          "Astros Engine", //Name of the window
-                                         nullptr,nullptr);
+                                         NULL,NULL);
     
     //Error check if window fails to create
-    if (window == nullptr)
+    if (window == NULL)
     {
         std::cerr << "Create Window Failed\n";
         glfwTerminate();
+        return -1;
     }
     //Introduce the window to current context
     glfwMakeContextCurrent(window);
@@ -48,8 +53,7 @@ int main()
     //Specify viewport of OpenGL in window
     glViewport(0,0,800,800);
     
-    
-    shader shaderProgram("Default.vert","Default.frag");
+    Shader shaderProgram("Default.vert","Default.frag");
     
     VAO VAO1;
     VAO1.Bind();
@@ -57,18 +61,22 @@ int main()
     VBO VBO1(vertices,sizeof(vertices));
     EBO EBO1(indices,sizeof(indices));
     
-    VAO1.LinkVBO(VBO1,0);
+    VAO1.LinkAttrib(VBO1,0,3,GL_FLOAT,6*sizeof(float),(void*)0);
+    VAO1.LinkAttrib(VBO1,1,3,GL_FLOAT,6*sizeof(float),(void*)(3*sizeof(float)));
     VAO1.Unbind();
-    VBO::Unbind();
-    EBO::Unbind();
+    VBO1.Unbind();
+    EBO1.Unbind();
+    
+    GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
     while (!glfwWindowShouldClose(window))
     {
-        glClearColor(0.352f,0.815f,0.223,1.0f);
+        glClearColor(0.07f, 0.13f, 0.17f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         shaderProgram.Activete();
+        glUniform1f(uniID,0.5f);
         VAO1.Bind();
-        glDrawArrays(GL_TRIANGLES,0,3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glfwSwapBuffers(window);
         //Takes care of all events in GLFW
         glfwPollEvents();

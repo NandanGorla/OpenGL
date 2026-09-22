@@ -15,7 +15,7 @@ public:
     EBO(GLuint* indices,GLsizeiptr size);
     
     void Bind();
-    static void Unbind();
+    void Unbind();
     void Delete();
 };
 

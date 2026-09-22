@@ -12,12 +12,12 @@ VBO::VBO(GLfloat* vertices, GLsizeiptr size)
 
 void VBO::Bind()
 {
-    glGenBuffers(GL_ARRAY_BUFFER,&ID);
+    glBindBuffer(GL_ARRAY_BUFFER,ID);
 }
 
 void VBO::Unbind()
 {
-    glGenBuffers(GL_ARRAY_BUFFER,nullptr);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
 }
 
 void VBO::Delete()

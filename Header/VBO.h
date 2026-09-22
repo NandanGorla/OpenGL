@@ -14,7 +14,7 @@ public:
     GLuint ID{};
     VBO(GLfloat* vertices,GLsizeiptr size);
     void Bind();
-    static void Unbind();
+    void Unbind();
     void Delete();
 };
 

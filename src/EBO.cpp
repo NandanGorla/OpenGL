@@ -13,12 +13,12 @@ EBO::EBO(GLuint* indices, GLsizeiptr size)
 
 void EBO::Bind()
 {
-    glGenBuffers(GL_ELEMENT_ARRAY_BUFFER,&ID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ID);
 }
 
 void EBO::Unbind()
 {
-    glGenBuffers(GL_ELEMENT_ARRAY_BUFFER,nullptr);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 }
 
 void EBO::Delete()

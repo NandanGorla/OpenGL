@@ -1,7 +1,10 @@
 //
 // Created by gnand on 17/09/2026.
 //
+#include <iostream>
 #include "Header/shaderClass.h"
+#include <fstream>
+
 
 std::string get_file_contents(const char* filename)
 {
@@ -19,7 +22,7 @@ std::string get_file_contents(const char* filename)
     throw (errno);
 }
 
-shader::shader(const char* vertexFile, const char* fragmentFile)
+Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
     std::string vertexCode = get_file_contents(vertexFile);
     std::string fragmentCode = get_file_contents(fragmentFile);
@@ -30,16 +33,18 @@ shader::shader(const char* vertexFile, const char* fragmentFile)
     //Create Vertex Shader Object and get referance
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     //Attach vertex shader source to the vertex shader object
-    glShaderSource(vertexShader,1,&vertexSource, nullptr);
+    glShaderSource(vertexShader,1,&vertexSource, 0);
     //Compile the vertex shader into machine code
     glCompileShader(vertexShader);
+    compileError(vertexShader,"VERTEX");
     
     //Create fragment shader and get referance
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     //Attach fragment shader source to the fragment shafer object
-    glShaderSource(fragmentShader,1,&fragmentSource,nullptr);
+    glShaderSource(fragmentShader,1,&fragmentSource,0);
     //Compiele the vertex shader into machine code
     glCompileShader(fragmentShader);
+    compileError(fragmentShader,"FRAGMENT");
     
     //Make shader progeam object anf get its referance
     ID = glCreateProgram();
@@ -48,19 +53,41 @@ shader::shader(const char* vertexFile, const char* fragmentFile)
     glAttachShader(ID,fragmentShader);
     //Link all shaders together into the shader program
     glLinkProgram(ID);
-    glUseProgram(ID);
+    compileError(ID,"PROGRAM");
     
     //Delete now useless vertex and fragment shaders
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }
 
-void shader::Activete()
+void Shader::Activete()
 {
     glUseProgram(ID);
 }
 
-void shader::Delete()
+void Shader::Delete()
 {
     glDeleteProgram(ID);
+}
+
+void Shader::compileError(unsigned int shader, const char* type)
+{
+    GLint hasCompiled;
+    char infoLog[1024];
+    if (type != "PROGRAM")
+    {
+        glGetShaderiv(shader,GL_COMPILE_STATUS,&hasCompiled);
+        if (hasCompiled == GL_FALSE)
+        {
+            glGetShaderInfoLog(shader,1024,NULL,infoLog);
+            std::cout << "SHADER_COMPILATION_ERROR for" << type <<std::endl;
+        }
+    }else{
+        glGetProgramiv(shader,GL_COMPILE_STATUS,&hasCompiled);
+        if (hasCompiled == GL_FALSE)
+        {
+            glGetShaderInfoLog(shader,1024,NULL,infoLog);
+            std::cout << "SHADER_LINKING_ERROR for" << type << std::endl;
+        }
+    }
 }
