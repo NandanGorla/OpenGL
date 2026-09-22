@@ -24,6 +24,7 @@ add_executable(OpenGL src/main.cpp src/glad.c
         src/EBO.cpp
         Header/EBO.h
         src/VAO.cpp
-        Header/VAO.h)
+        Header/VAO.h
+        src/stb.cpp)
 
 target_link_libraries(OpenGL PRIVATE glfw opengl32)
