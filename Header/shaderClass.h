@@ -1,6 +1,4 @@
-//
 // Created by gnand on 17/09/2026.
-//
 #pragma once
 
 #ifndef OPENGL_SHADERCLASS_H
@@ -9,6 +7,7 @@
 #include <glad/glad.h>
 #include <string>
 #include <sstream>
+
 std::string get_file_contents(const char* filename);
 class Shader
 {
@@ -17,7 +16,6 @@ public:
     int success;
     char infoLog[512];
     Shader(const char* vertexFile,const char* fragmentFile);
-    
     void Activete();
     void Delete();
 private:

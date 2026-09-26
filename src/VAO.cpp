@@ -2,7 +2,7 @@
 // Created by gnand on 20/09/2026.
 //
 
-#include "Header/VAO.h"
+#include "../Header/VAO.h"
 
 VAO::VAO()
 {

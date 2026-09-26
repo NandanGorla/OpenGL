@@ -1,7 +1,7 @@
 //
 // Created by gnand on 19/09/2026.
 //
-#include "Header/VBO.h"
+#include "../Header/VBO.h"
 
 VBO::VBO(GLfloat* vertices, GLsizeiptr size)
 {

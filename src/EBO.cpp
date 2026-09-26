@@ -2,7 +2,7 @@
 // Created by gnand on 19/09/2026.
 //
 
-#include "Header/EBO.h"
+#include "../Header/EBO.h"
 
 EBO::EBO(GLuint* indices, GLsizeiptr size)
 {
