@@ -4,9 +4,9 @@
 #ifndef OPENGL_SHADERCLASS_H
 #define OPENGL_SHADERCLASS_H
 
-#include <glad/glad.h>
 #include <string>
 #include <sstream>
+#include <glad/glad.h>
 
 std::string get_file_contents(const char* filename);
 class Shader

@@ -1,6 +1,6 @@
 // Created by gnand on 17/09/2026.
 #include <iostream>
-#include "../Header/shaderClass.h"
+#include <shaderClass.h>
 #include <fstream>
 
 

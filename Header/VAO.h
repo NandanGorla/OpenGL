@@ -7,7 +7,7 @@
 #define OPENGL_VAO_H
 
 #include <glad/glad.h>
-#include "Header/VBO.h"
+#include <Header/VBO.h>
 
 class VAO
 {
@@ -15,7 +15,7 @@ public:
     GLuint ID{};
     VAO();
 
-    void LinkAttrib(VBO VBO,GLuint layout,GLuint numComponents,GLenum type,GLsizeiptr stride,void* offset);
+    void LinkAttrib(VBO& VBO,GLuint layout,GLuint numComponents,GLenum type,GLsizeiptr stride,void* offset);
     void Bind();
     void Unbind();
     void Delete();

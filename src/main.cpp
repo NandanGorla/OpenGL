@@ -1,26 +1,43 @@
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb/stb_image.h>
-#include "../Header/shaderClass.h"
-#include "../Header/VAO.h"
-#include "../Header/VBO.h"
-#include "../Header/EBO.h"
-#include "../Header/Texture.h"
 
+#include <shaderClass.h>
+#include <VAO.h>
+#include <VBO.h>
+#include <EBO.h>
+#include <Texture.h>
+#include <Camera.h>
+
+//Verticies coordinates
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS      /   TexCoord  //
-    -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
-    -0.5f,  0.5f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
-     0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
-     0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f  // Lower right corner
+    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0f
 };
 
+// Indices for vertices order
 GLuint indices[] =
 {
-    0, 2, 1, // Upper triangle
-    0, 3, 2 // Lower triangle
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
 };
+
+const unsigned int width = 800;
+const unsigned int height = 800;
 
 int main()
 {
@@ -35,7 +52,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
 
     //creat a GLFW window object
-    GLFWwindow* window = glfwCreateWindow(800,800,//Height and width of window
+    GLFWwindow* window = glfwCreateWindow(width,height,//Height and width of window
                                          "Astros Engine", //Name of the window
                                          NULL,NULL);
     
@@ -52,9 +69,9 @@ int main()
     gladLoadGL();
 
     //Specify viewport of OpenGL in window
-    glViewport(0,0,800,800);
+    glViewport(0,0,width,height);
     
-    Shader shaderProgram("Default.vert","Default.frag");
+    Shader shaderProgram(RESOURCE_DIR"Shaders/Default.vert", RESOURCE_DIR"Shaders/Default.frag");
     
     VAO VAO1;
     VAO1.Bind();
@@ -71,47 +88,49 @@ int main()
     
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
-    //Textures
-    // int widthImg, heightImg,numColCh;
-    // stbi_set_flip_vertically_on_load(true); 
-    // unsigned char* bytes = stbi_load("Pop-Cat-Playful-Gesture-PNG-thumb.png",&widthImg,&heightImg,&numColCh,STBI_rgb_alpha);
-    // if (!bytes) {
-    //     std::cerr << "Failed to load texture image! (check working directory)" << std::endl;
-    // } else {
-    //     std::cout << "Loaded image: " << widthImg << "x" << heightImg << ", channels: " << numColCh << std::endl;
-    // }
-    // GLuint texture;
-    // glGenTextures(1,&texture);
-    // glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D,texture);
-    //
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    //
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
-    //
-    // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
-    // glGenerateMipmap(GL_TEXTURE_2D);
-    //
-    // stbi_image_free(bytes);
-    // glBindTexture(GL_TEXTURE_2D,0);
-    //
-    // GLuint tex0uni = glGetUniformLocation(shaderProgram.ID,"tex0");
-    // shaderProgram.Activete();
-    // glUniform1i(tex0uni,0);
-    Texture popCat("Pop-Cat-Playful-Gesture-PNG-thumb.png",GL_TEXTURE_2D,GL_TEXTURE0,GL_RGBA,GL_UNSIGNED_BYTE);
+    Texture popCat(RESOURCE_DIR"Textures/Pop-Cat-Playful-Gesture-PNG-thumb.png",GL_TEXTURE_2D,GL_TEXTURE0,GL_RGBA,GL_UNSIGNED_BYTE);
     popCat.texUnit(shaderProgram,"tex0",0);
+    
+    glEnable(GL_DEPTH_TEST);
+    
+    Camera camera(width,height,glm::vec3(0.0f,0.0f,2.0f));
+    
+    float rotation = 0.0f;
+    double prevTime = glfwGetTime();
     
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.07f, 0.13f, 0.17f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shaderProgram.Activete();
+        
+        double crntTime =glfwGetTime();
+        if (crntTime-prevTime >=1/60)
+        {
+            rotation += 0.5f;
+            prevTime = crntTime;
+        }
+        
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 proj = glm::mat4(1.0f);
+        
+        model = glm::rotate(model,glm::radians(rotation),glm::vec3(0.0f,1.0f,0.0f));
+        
+        view =glm::translate(view,glm::vec3(0.0f,-0.5f,-2.0f));
+        proj = glm::perspective(glm::radians(45.0f),(float)(width/height),0.1f,100.0f);
+        
+        int modelLoc = glGetUniformLocation(shaderProgram.ID,"model");
+        glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
+        int viewLoc = glGetUniformLocation(shaderProgram.ID,"view");
+        glUniformMatrix4fv(viewLoc,1,GL_FALSE,glm::value_ptr(model));
+        int projLoc = glGetUniformLocation(shaderProgram.ID,"proj");
+        glUniformMatrix4fv(projLoc,1,GL_FALSE,glm::value_ptr(model));
+        
         glUniform1f(uniID,0.5f);
         popCat.Bind();
         VAO1.Bind();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
         glfwSwapBuffers(window);
         //Takes care of all events in GLFW
         glfwPollEvents();

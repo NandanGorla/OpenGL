@@ -1,6 +1,5 @@
-//
 // Created by gnand on 19/09/2026.
-//
+
 #pragma once
 
 #ifndef OPENGL_EBO_H

@@ -1,6 +1,6 @@
 // Created by gnand on 26/09/2026.
 #include <iostream>
-#include "../Header/Texture.h"
+#include <Texture.h>
 
 Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType)
 {
@@ -30,7 +30,7 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
     glBindTexture(texType,0);
 }
 
-void Texture::texUnit(Shader shader, const char* uniform, GLuint uint)
+void Texture::texUnit(Shader& shader, const char* uniform, GLuint uint)
 {
     GLuint tex0uni = glGetUniformLocation(shader.ID,uniform);
     shader.Activete();
