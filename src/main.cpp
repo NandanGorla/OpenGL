@@ -17,7 +17,7 @@
 
 //Verticies coordinates
 GLfloat vertices[] =
-{ //     COORDINATES     /        COLORS      /   TexCoord  //
+{ //     COORDINATES     /        COLORS         /  TexCoord
     -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
     -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
      0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
@@ -88,15 +88,15 @@ int main()
     
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
-    Texture popCat(RESOURCE_DIR"Textures/Pop-Cat-Playful-Gesture-PNG-thumb.png",GL_TEXTURE_2D,GL_TEXTURE0,GL_RGBA,GL_UNSIGNED_BYTE);
+    Texture popCat(RESOURCE_DIR"Textures/OIP.jpg",GL_TEXTURE_2D,GL_TEXTURE0,GL_RGBA,GL_UNSIGNED_BYTE);
     popCat.texUnit(shaderProgram,"tex0",0);
     
     glEnable(GL_DEPTH_TEST);
     
     Camera camera(width,height,glm::vec3(0.0f,0.0f,2.0f));
     
-    float rotation = 0.0f;
-    double prevTime = glfwGetTime();
+    // float rotation = 0.0f;
+    // double prevTime = glfwGetTime();
     
     while (!glfwWindowShouldClose(window))
     {
@@ -104,30 +104,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shaderProgram.Activete();
         
-        double crntTime =glfwGetTime();
-        if (crntTime-prevTime >=1/60)
-        {
-            rotation += 0.5f;
-            prevTime = crntTime;
-        }
+        camera.Input(window);
+        camera.Matrix(45.0f,0.1f,100.0f,shaderProgram,"camMatrix");
         
-        glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 proj = glm::mat4(1.0f);
-        
-        model = glm::rotate(model,glm::radians(rotation),glm::vec3(0.0f,1.0f,0.0f));
-        
-        view =glm::translate(view,glm::vec3(0.0f,-0.5f,-2.0f));
-        proj = glm::perspective(glm::radians(45.0f),(float)(width/height),0.1f,100.0f);
-        
-        int modelLoc = glGetUniformLocation(shaderProgram.ID,"model");
-        glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
-        int viewLoc = glGetUniformLocation(shaderProgram.ID,"view");
-        glUniformMatrix4fv(viewLoc,1,GL_FALSE,glm::value_ptr(model));
-        int projLoc = glGetUniformLocation(shaderProgram.ID,"proj");
-        glUniformMatrix4fv(projLoc,1,GL_FALSE,glm::value_ptr(model));
-        
-        glUniform1f(uniID,0.5f);
         popCat.Bind();
         VAO1.Bind();
         glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
