@@ -1,0 +1,22 @@
+# ninja log v7
+1	76	8125121261786236	build.ninja	4e12a4584341d505
+3	1378	8125045345558698	CMakeFiles/OpenGL.dir/src/main.cpp.obj	7952a2fa93870656
+11	312	8125069162204916	CMakeFiles/OpenGL.dir/src/glad.c.obj	870b17df1fd99a16
+24	97	8125069162333162	CMakeFiles/OpenGL.dir/src/VBO.cpp.obj	b66cf4a06e0808b5
+29	98	8125069162378222	CMakeFiles/OpenGL.dir/src/EBO.cpp.obj	17d45907c78fd38
+28	588	8121723591753722	CMakeFiles/OpenGL.dir/src/VAO.cpp.obj	51ff58e4528e9093
+16	228	8125069162251735	CMakeFiles/OpenGL.dir/src/stb.cpp.obj	50b2c6ffacc2b376
+39	639	8125069162480449	CMakeFiles/OpenGL.dir/src/Texture.cpp.obj	3a2e28bb9cc63bb7
+34	639	8125069162425827	CMakeFiles/OpenGL.dir/src/shaderClass.cpp.obj	1bfede0af2b31838
+1378	1670	8125045359315044	OpenGL.exe	156159301275c864
+44	1108	8125069162530516	CMakeFiles/OpenGL.dir/src/Camera.cpp.obj	598a69ba34647dc3
+23	450	8125121301697844	CMakeFiles/OpenGL.dir/src/EBO.cpp.obj	c196ce90d4096b76
+15	451	8125121301612751	CMakeFiles/OpenGL.dir/src/VAO.cpp.obj	5159ff2fb999174e
+19	451	8125121301652778	CMakeFiles/OpenGL.dir/src/VBO.cpp.obj	2234f414e9b022b1
+10	539	8125121301563203	CMakeFiles/OpenGL.dir/src/stb.cpp.obj	151fe4803d92ce9b
+7	624	8125121301528408	CMakeFiles/OpenGL.dir/src/glad.c.obj	c52938a4e7bc0e62
+32	926	8125121301784573	CMakeFiles/OpenGL.dir/src/Texture.cpp.obj	4c094827f434a39a
+28	939	8125121301737903	CMakeFiles/OpenGL.dir/src/shaderClass.cpp.obj	2116997a5707d7bd
+2	1314	8125121301481118	CMakeFiles/OpenGL.dir/src/main.cpp.obj	363f960b53428bd2
+37	1338	8125121301829685	CMakeFiles/OpenGL.dir/src/Camera.cpp.obj	a8ec826f72a42bb7
+1338	1746	8125121314840801	OpenGL.exe	18f4faeba644830f

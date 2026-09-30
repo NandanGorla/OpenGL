@@ -1,0 +1,56 @@
+[
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\main.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\main.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/main.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/main.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\glad.c.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\glad.c",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/glad.c",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/glad.c.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\stb.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\stb.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/stb.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/stb.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\VAO.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\VAO.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/VAO.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/VAO.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\VBO.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\VBO.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/VBO.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/VBO.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\EBO.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\EBO.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/EBO.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/EBO.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\shaderClass.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\shaderClass.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/shaderClass.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/shaderClass.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\Texture.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\Texture.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/Texture.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/Texture.cpp.obj"
+},
+{
+  "directory": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\18\\BUILDT~1\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DRESOURCE_DIR=\\\"F:/01_Learning/OpenGL/FirstLearn/Resource/\\\" -IF:\\01_Learning\\OpenGL\\FirstLearn -IF:\\01_Learning\\OpenGL\\FirstLearn\\Resource -IF:\\01_Learning\\OpenGL\\FirstLearn\\Header /DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /FoCMakeFiles\\OpenGL.dir\\src\\Camera.cpp.obj /FdCMakeFiles\\OpenGL.dir\\ /FS -c F:\\01_Learning\\OpenGL\\FirstLearn\\src\\Camera.cpp",
+  "file": "F:/01_Learning/OpenGL/FirstLearn/src/Camera.cpp",
+  "output": "F:/01_Learning/OpenGL/FirstLearn/cmake-build-debug/CMakeFiles/OpenGL.dir/src/Camera.cpp.obj"
+}
+]
