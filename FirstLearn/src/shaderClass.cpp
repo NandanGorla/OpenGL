@@ -31,7 +31,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
     //Create Vertex Shader Object and get referance
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     //Attach vertex shader source to the vertex shader object
-    glShaderSource(vertexShader,1,&vertexSource, 0);
+    glShaderSource(vertexShader,1,&vertexSource, nullptr);
     //Compile the vertex shader into machine code
     glCompileShader(vertexShader);
     compileError(vertexShader,"VERTEX");
@@ -77,14 +77,14 @@ void Shader::compileError(unsigned int shader, const char* type)
         glGetShaderiv(shader,GL_COMPILE_STATUS,&hasCompiled);
         if (hasCompiled == GL_FALSE)
         {
-            glGetShaderInfoLog(shader,1024,NULL,infoLog);
+            glGetShaderInfoLog(shader,1024,nullptr,infoLog);
             std::cout << "SHADER_COMPILATION_ERROR for" << type <<std::endl;
         }
     }else{
         glGetProgramiv(shader,GL_COMPILE_STATUS,&hasCompiled);
         if (hasCompiled == GL_FALSE)
         {
-            glGetShaderInfoLog(shader,1024,NULL,infoLog);
+            glGetShaderInfoLog(shader,1024,nullptr,infoLog);
             std::cout << "SHADER_LINKING_ERROR for" << type << std::endl;
         }
     }

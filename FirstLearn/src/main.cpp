@@ -16,39 +16,20 @@
 #include <Camera.h>
 
 //Verticies coordinates
-GLfloat vertices[]
-{ //     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // Right side
-
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // Facing side
+GLfloat vertices[] =
+{ //     COORDINATES     /        COLORS        /    TexCoord    /       NORMALS     //
+    -1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,       0.0f, 0.0f,     0.0f, 1.0f, 0.0f,
+    -1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,       0.0f, 1.0f,     0.0f, 1.0f, 0.0f,
+     1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,       1.0f, 1.0f,     0.0f, 1.0f, 0.0f,
+     1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,       1.0f, 0.0f,     0.0f, 1.0f, 0.0f
 };
+
 
 // Indices for vertices order
 GLuint indices[]
 {
-    0, 1, 2, // Bottom side
-    0, 2, 3, // Bottom side
-    4, 6, 5, // Left side
-    7, 9, 8, // Non-facing side
-    10, 12, 11, // Right side
-    13, 15, 14 // Facing side
+    0, 1, 2,
+    0, 2, 3
 };
 
 GLfloat lightVertices[]
@@ -97,8 +78,8 @@ int main()
     //creat a GLFW window object
     GLFWwindow* window
     {
-        glfwCreateWindow(width,height,//Height and width of window
-                         "Astros Engine", //Name of the window
+        glfwCreateWindow(width,height,      //Height and width of window
+                         "Astros Engine",   //Name of the window
                          nullptr,nullptr)
     };
     
@@ -169,8 +150,10 @@ int main()
     
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
-    Texture popCat(RESOURCE_DIR"Textures/OIP.jpg",GL_TEXTURE_2D,GL_TEXTURE0,GL_RGBA,GL_UNSIGNED_BYTE);
-    popCat.texUnit(shaderProgram,"tex0",0);
+    Texture texture(RESOURCE_DIR"Textures/container2.png",GL_TEXTURE_2D,0,GL_RGBA,GL_UNSIGNED_BYTE);
+    texture.texUnit(shaderProgram,"tex0",0);
+    Texture specular(RESOURCE_DIR"Textures/container2_specular.png",GL_TEXTURE_2D,1,GL_RED,GL_UNSIGNED_BYTE);
+    specular.texUnit(shaderProgram,"tex1",1);
     
     glEnable(GL_DEPTH_TEST);
     
@@ -184,10 +167,11 @@ int main()
         camera.Input(window);
         camera.updateMatrix(45.0f,0.1f,100.0f);
         shaderProgram.Activete();
-        glUniform3f(glGetUniformLocation(shaderProgram.ID,"camPos"),camera.position.x,camera.position.y,camera.position.z);
+        glUniform3f(glGetUniformLocation(shaderProgram.ID,"camPos"),camera.Position.x,camera.Position.y,camera.Position.z);
         camera.Matrix(shaderProgram,"camMatrix");
         
-        popCat.Bind();
+        texture.Bind();
+        specular.Bind();
         VAO1.Bind();
         glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, nullptr);
 
@@ -205,7 +189,7 @@ int main()
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();
-    popCat.Delete();
+    texture.Delete();
     shaderProgram.Delete();
     //Destroyes the window object to prevent leak
     glfwDestroyWindow(window);
