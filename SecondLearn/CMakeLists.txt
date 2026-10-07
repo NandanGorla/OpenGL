@@ -31,3 +31,6 @@ target_link_libraries(OpenGL PRIVATE
         ${CMAKE_SOURCE_DIR}/Resource/Lib/glfw3.lib
         opengl32
 )
+
+# Add tasks subprojects
+add_subprojects(${CMAKE_SOURCE_DIR})
