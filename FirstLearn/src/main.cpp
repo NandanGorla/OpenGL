@@ -1,27 +1,27 @@
 #define GLM_ENABLE_EXPERIMENTAL
-
+#include <Mesh.h>
 #include <iostream>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <stb/stb_image.h>
-
-#include <VAO.h>
-#include <VBO.h>
-#include <EBO.h>
-#include <shaderClass.h>
-#include <Texture.h>
-#include <Camera.h>
+// #include <glm/glm.hpp>
+// #include <glm/gtc/matrix_transform.hpp>
+// #include <glm/gtc/type_ptr.hpp>
+// #include <glad/glad.h>
+// #include <GLFW/glfw3.h>
+// #include <stb/stb_image.h>
+//
+// #include <VAO.h>
+// #include <VBO.h>
+// #include <EBO.h>
+// #include <shaderClass.h>
+// #include <Texture.h>
+// #include <Camera.h>
 
 //Verticies coordinates
-GLfloat vertices[] =
-{ //     COORDINATES     /        COLORS        /    TexCoord    /       NORMALS     //
-    -1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,       0.0f, 0.0f,     0.0f, 1.0f, 0.0f,
-    -1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,       0.0f, 1.0f,     0.0f, 1.0f, 0.0f,
-     1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,       1.0f, 1.0f,     0.0f, 1.0f, 0.0f,
-     1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,       1.0f, 0.0f,     0.0f, 1.0f, 0.0f
+Vertex vertices[] =
+{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
+    Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+    Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+    Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+    Vertex{glm::vec3( 1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
 };
 
 
@@ -32,16 +32,16 @@ GLuint indices[]
     0, 2, 3
 };
 
-GLfloat lightVertices[]
-{ //     COORDINATES
-    -0.1f, -0.1f,  0.1f,
-    -0.1f, -0.1f, -0.1f,
-     0.1f, -0.1f, -0.1f,
-     0.1f, -0.1f,  0.1f,
-    -0.1f,  0.1f,  0.1f,
-    -0.1f,  0.1f, -0.1f,
-     0.1f,  0.1f, -0.1f,
-     0.1f,  0.1f,  0.1f
+Vertex lightVertices[] =
+{ //     COORDINATES     //
+    Vertex{glm::vec3(-0.1f,-0.1f, 0.1f)},
+    Vertex{glm::vec3(-0.1f,-0.1f,-0.1f)},
+    Vertex{glm::vec3( 0.1f,-0.1f,-0.1f)},
+    Vertex{glm::vec3( 0.1f,-0.1f, 0.1f)},
+    Vertex{glm::vec3(-0.1f, 0.1f, 0.1f)},
+    Vertex{glm::vec3(-0.1f, 0.1f,-0.1f)},
+    Vertex{glm::vec3( 0.1f, 0.1f,-0.1f)},
+    Vertex{glm::vec3( 0.1f, 0.1f, 0.1f)}
 };
 
 GLuint lightIndices[]
@@ -98,39 +98,25 @@ int main()
     //Specify viewport of OpenGL in window
     glViewport(0,0,width,height);
     
+    Texture textures[]
+    {
+        Texture(RESOURCE_DIR"Textures/container2.png", "diffuse" ,0,GL_RGBA,GL_UNSIGNED_BYTE),
+        Texture(RESOURCE_DIR"Textures/container2_specular.png", "specular",1,GL_RED,GL_UNSIGNED_BYTE)
+    };
+    
     Shader shaderProgram(RESOURCE_DIR"Shaders/Default.vert", RESOURCE_DIR"Shaders/Default.frag");
-    
-    VAO VAO1;
-    VAO1.Bind();
-    
-    VBO VBO1(vertices,sizeof(vertices));
-    EBO EBO1(indices,sizeof(indices));
-    
-    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11*sizeof(float), (void*)nullptr);
-    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11*sizeof(float), (void*)(3*sizeof(float)));
-    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11*sizeof(float), (void*)(6*sizeof(float)));
-    VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11*sizeof(float), (void*)(8*sizeof(float)));
-    
-    //unbind all to prevent any modification to them
-    VAO1.Unbind();
-    VBO1.Unbind();
-    EBO1.Unbind();
+    std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+    std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+    std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+    Mesh floor(verts,ind,tex);
     
     Shader lightShader(RESOURCE_DIR"Shaders/light.vert",RESOURCE_DIR"Shaders/light.frag");
+    std::vector <Vertex> lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+    std::vector <GLuint> lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
+    // Create light mesh
+    Mesh light(lightVerts, lightInd, tex);
     
-    VAO lightVAO;
-    lightVAO.Bind();
-    
-    VBO lightVBO(lightVertices,sizeof(lightVertices));
-    EBO lightEBO(lightIndices,sizeof(lightIndices));
-    
-    lightVAO.LinkAttrib(lightVBO,0,3,GL_FLOAT,3*sizeof(float),(void*)nullptr);
-    
-    lightVAO.Unbind();
-    lightVBO.Unbind();
-    lightEBO.Unbind();
-    
-    glm::vec4 lightColor{glm::vec4(1.0f,0.0f,0.0f,1.0f)};
+    glm::vec4 lightColor{glm::vec4(1.0f,1.0f,1.0f,1.0f)};
     
     glm::vec3 lightPos{glm::vec3(0.5f,0.5f,0.5f)};
     glm::mat4 lightModel{glm::mat4(1.0f)};
@@ -150,10 +136,7 @@ int main()
     
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
-    Texture texture(RESOURCE_DIR"Textures/container2.png",GL_TEXTURE_2D,0,GL_RGBA,GL_UNSIGNED_BYTE);
-    texture.texUnit(shaderProgram,"tex0",0);
-    Texture specular(RESOURCE_DIR"Textures/container2_specular.png",GL_TEXTURE_2D,1,GL_RED,GL_UNSIGNED_BYTE);
-    specular.texUnit(shaderProgram,"tex1",1);
+    
     
     glEnable(GL_DEPTH_TEST);
     
@@ -166,19 +149,9 @@ int main()
         
         camera.Input(window);
         camera.updateMatrix(45.0f,0.1f,100.0f);
-        shaderProgram.Activete();
-        glUniform3f(glGetUniformLocation(shaderProgram.ID,"camPos"),camera.Position.x,camera.Position.y,camera.Position.z);
-        camera.Matrix(shaderProgram,"camMatrix");
         
-        texture.Bind();
-        specular.Bind();
-        VAO1.Bind();
-        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, nullptr);
-
-        lightShader.Activete();
-        camera.Matrix(lightShader, "camMatrix");
-        lightVAO.Bind();
-        glDrawElements(GL_TRIANGLES,sizeof(lightIndices)/sizeof(int),GL_UNSIGNED_INT,nullptr);
+        floor.Draw(shaderProgram,camera);
+        floor.Draw(lightShader,camera);
         
         glfwSwapBuffers(window);
         //Takes care of all events in GLFW
@@ -186,11 +159,8 @@ int main()
     }
 
     //Delete all objects created
-    VAO1.Delete();
-    VBO1.Delete();
-    EBO1.Delete();
-    texture.Delete();
     shaderProgram.Delete();
+    lightShader.Delete();
     //Destroyes the window object to prevent leak
     glfwDestroyWindow(window);
     

@@ -22,6 +22,8 @@ add_executable(OpenGL
         src/shaderClass.cpp
         src/Texture.cpp
         src/Camera.cpp
+        src/Mesh.cpp
+        Header/Mesh.h
 )
 
 target_compile_definitions(OpenGL PRIVATE RESOURCE_DIR="${CMAKE_SOURCE_DIR}/Resource/")
