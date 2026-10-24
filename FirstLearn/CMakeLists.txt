@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_SOURCE_DIR}/Resource)
+include_directories(${CMAKE_SOURCE_DIR}/Resource/Includes)
 include_directories(${CMAKE_SOURCE_DIR}/Header)
 
 add_executable(OpenGL
@@ -24,12 +25,14 @@ add_executable(OpenGL
         src/Camera.cpp
         src/Mesh.cpp
         Header/Mesh.h
+        src/Model.cpp
+        Header/Model.h
 )
 
 target_compile_definitions(OpenGL PRIVATE RESOURCE_DIR="${CMAKE_SOURCE_DIR}/Resource/")
 
 
 target_link_libraries(OpenGL PRIVATE
-        ${CMAKE_SOURCE_DIR}/Resource/Lib/glfw3.lib
+        ${CMAKE_SOURCE_DIR}/Resource/Includes/Lib/glfw3.lib
         opengl32
 )

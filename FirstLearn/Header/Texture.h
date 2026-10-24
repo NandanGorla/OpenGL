@@ -15,7 +15,7 @@ public:
     GLuint ID;
     GLuint unit;
     const char* type;
-    Texture(const char* image,const char* texTpye,GLenum slot,GLenum format,GLenum pixelType);
+    Texture(const char* image,const char* texTpye,GLenum slot);
     
     void texUnit(Shader& shader,const char* uniform,GLuint uint);
     void Bind();

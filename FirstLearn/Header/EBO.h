@@ -2,8 +2,8 @@
 
 #pragma once
 
-#ifndef OPENGL_EBO_H
-#define OPENGL_EBO_H
+#ifndef EBO_H
+#define EBO_H
 
 #include <vector>
 #include <glad/glad.h>

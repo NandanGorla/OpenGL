@@ -22,7 +22,14 @@ public:
          std::vector<GLuint>& indices,
          std::vector<Texture>& textures);
     
-    void Draw(Shader& shader,Camera& camera);
+    void Draw(
+        Shader& shader,
+        Camera& camera,
+        glm::mat4 matrix = glm::mat4(1.0f),
+        glm::vec3 translations = glm::vec3(0.0f,0.0f,0.0f),
+        glm::quat rotations = glm::quat(1.0f,0.0f,0.0f,0.0f),
+        glm::vec3 scales = glm::vec3(1.0f,1.0f,1.0f)
+    );
 };
 
 #endif

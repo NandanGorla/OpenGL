@@ -1,8 +1,8 @@
 // Created by gnand on 17/09/2026.
 #pragma once
 
-#ifndef OPENGL_SHADERCLASS_H
-#define OPENGL_SHADERCLASS_H
+#ifndef SHADER_CLASS_H
+#define SHADER_CLASS_H
 
 #include <string>
 #include <sstream>
@@ -22,4 +22,4 @@ private:
     void compileError(unsigned int shader,const char* type);
 };
 
-#endif //OPENGL_SHADERCLASS_H
+#endif //SHADER_CLASS_H

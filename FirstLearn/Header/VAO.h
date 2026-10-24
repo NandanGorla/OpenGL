@@ -3,11 +3,11 @@
 //
 #pragma once
 
-#ifndef OPENGL_VAO_H
-#define OPENGL_VAO_H
+#ifndef VAO_H
+#define VAO_H
 
 #include <glad/glad.h>
-#include <Header/VBO.h>
+#include <VBO.h>
 
 class VAO
 {

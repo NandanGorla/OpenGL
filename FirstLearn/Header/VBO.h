@@ -1,11 +1,12 @@
 // Created by gnand on 19/09/2026.
 #pragma once
 
-#ifndef OPENGL_VBO_H
-#define OPENGL_VBO_H
+#ifndef VBO_H
+#define VBO_H
 
 #include <glad/glad.h>
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
+#include <vector>
 
 struct Vertex
 {
