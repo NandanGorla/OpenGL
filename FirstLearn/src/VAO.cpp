@@ -1,6 +1,4 @@
-//
 // Created by gnand on 20/09/2026.
-//
 
 #include <VAO.h>
 

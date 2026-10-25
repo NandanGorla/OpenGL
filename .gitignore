@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Folder Exclusions
+/cmake-build-debug/

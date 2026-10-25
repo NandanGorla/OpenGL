@@ -22,5 +22,4 @@ void main()
     color = aColor;
     texcoord = mat2(0.0f , -1.0f , 1.0f , 1.0f) * aTex;
     gl_Position = camMatrix * vec4(crntPos,1);
-
 }

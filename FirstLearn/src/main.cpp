@@ -2,19 +2,6 @@
 
 #include <Model.h>
 #include <iostream>
-// #include <glm/glm.hpp>
-// #include <glm/gtc/matrix_transform.hpp>
-// #include <glm/gtc/type_ptr.hpp>
-// #include <glad/glad.h>
-// #include <GLFW/glfw3.h>
-// #include <stb/stb_image.h>
-//
-// #include <VAO.h>
-// #include <VBO.h>
-// #include <EBO.h>
-// #include <shaderClass.h>
-// #include <Texture.h>
-// #include <Camera.h>
 
 const unsigned int width{800};
 const unsigned int height{800};
@@ -69,14 +56,15 @@ int main()
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     
     Camera camera(width,height,glm::vec3(0.0f,0.0f,2.0f));
     
-    Model model("F:/Drive/Work/Jury Models/Portfolio Work/Violin/scenes/violin.fbx");
+    Model model(RESOURCE_DIR"Models/sword/scene.gltf");
     
     while (!glfwWindowShouldClose(window))
     {
-        glClearColor(0.07f, 0.13f, 0.17f,1.0f);
+        glClearColor(0.85f, 0.85f, 0.85f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         camera.Input(window);

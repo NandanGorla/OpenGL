@@ -70,19 +70,18 @@ vec4 pointLight(){
     texture(specular0,texcoord).r * specular * intensity) * lightColor;
 }
 
+float linearizeDepth(float depth){
+    return (2.0 * near * far) / (far + near - (depth * 2.0 - 1.0) * (far - near));
+}
+
+float logisticDepth(float depth , float steepness = 0.5f , float offset = 5.0f){
+    float zVal = linearizeDepth(depth);
+    return (1 / (1 + exp(-steepness * (zVal - offset))));
+}
+
 void main()
 {
-    float ambient = 0.2f;
-    
-    vec3 normal = normalize(Normal);
-    vec3 lightDirection = normalize(lightPos - crntPos);
-    float diffuse = max(dot(normal,lightDirection),0.0f);
-    
-    float specularLight = 0.5f;
-    vec3 viewDirection = normalize(camPos - crntPos);
-    vec3 refectionDirection = reflect(-lightDirection,normal);
-    float specAmount = pow(max(dot(viewDirection,refectionDirection),0.0f),16);
-    float specular = specAmount * specularLight;
-    
-    fragColor = directionalLight();
+    float near=0.1f,far = 100.0f;
+    float depth = logisticDepth(gl_FragCoord.z);
+    fragColor = directionalLight() * (1.0 - depth) + vec4(depth * vec3(0.85f , 0.85f , 0.90f),1.0f);
 }

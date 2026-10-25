@@ -1,6 +1,5 @@
-//
 // Created by gnand on 19/09/2026.
-//
+
 #include <VBO.h>
 
 VBO::VBO(std::vector<Vertex>& vertices)
