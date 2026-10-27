@@ -165,7 +165,7 @@ std::vector<GLuint> Model::getIndices(json accessors)
         {
             unsigned char bytes[]= {data[i++],data[i++],data[i++],data[i++]};
             float value;
-            std::memcpy(&value,bytes,sizeof(float));
+            std::memcpy(&value,bytes,sizeof(unsigned int));
             indicies.push_back((GLuint)value);
         }
     }

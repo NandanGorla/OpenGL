@@ -42,6 +42,7 @@ int main()
     glViewport(0,0,width,height);
         
     Shader shaderProgram(RESOURCE_DIR"Shaders/Default.vert", RESOURCE_DIR"Shaders/Default.frag");
+    Shader outliningProgram(RESOURCE_DIR"Shaders/outlining.vert", RESOURCE_DIR"Shaders/outlining.frag");
     
     glm::vec4 lightColor{glm::vec4(1.0f,1.0f,1.0f,1.0f)};
     
@@ -56,21 +57,37 @@ int main()
     GLuint uniID =glGetUniformLocation(shaderProgram.ID,"scale");
     
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
+    //glDepthFunc(GL_LESS);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
     
     Camera camera(width,height,glm::vec3(0.0f,0.0f,2.0f));
     
-    Model model(RESOURCE_DIR"Models/sword/scene.gltf");
+    Model model(RESOURCE_DIR"Models/crow/scene.gltf");
+    Model outline(RESOURCE_DIR"Models/crow-outline/scene.gltf");
     
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.85f, 0.85f, 0.85f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
         camera.Input(window);
         camera.updateMatrix(45.0f,0.1f,100.0f);
         
+        glStencilFunc(GL_ALWAYS,1,0xFF);
+        glStencilMask(0xFF);
         model.Draw(shaderProgram,camera);
+        
+        glStencilFunc(GL_NOTEQUAL,1,0xFF);
+        glStencilMask(0x00);
+        glDisable(GL_DEPTH_TEST);
+        outliningProgram.Activete();
+        glUniform1f(glGetUniformLocation(outliningProgram.ID,"outlining"),0.08f);
+        outline.Draw(outliningProgram,camera);
+        
+        glStencilMask(0xFF);
+        glStencilFunc(GL_ALWAYS,0,0xFF);
+        glEnable(GL_DEPTH_TEST);
         
         glfwSwapBuffers(window);
         //Takes care of all events in GLFW
