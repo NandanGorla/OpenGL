@@ -60,18 +60,40 @@ int main()
     //glDepthFunc(GL_LESS);
     glEnable(GL_STENCIL_TEST);
     glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glFrontFace(GL_CCW);
     
     Camera camera(width,height,glm::vec3(0.0f,0.0f,2.0f));
     
     Model model(RESOURCE_DIR"Models/crow/scene.gltf");
     Model outline(RESOURCE_DIR"Models/crow-outline/scene.gltf");
     
+    double crntTime{0}, prevTime{0}, timeDiff;
+    unsigned int counter{0};
+    
+    glfwSwapInterval(0);
+    
     while (!glfwWindowShouldClose(window))
     {
+        crntTime = glfwGetTime();
+        timeDiff = crntTime - prevTime;
+        counter++;
+        if (timeDiff > 1.0 / 30.0)
+        {
+            std::string FPS = std::to_string((1.0 / timeDiff) * counter);
+            std::string ms = std::to_string((timeDiff / counter) * 1000);
+            std::string newTitle = "Astros Engine" + FPS +"FPS /" + ms + "ms";
+            glfwSetWindowTitle(window,newTitle.c_str());
+            prevTime = crntTime;
+            counter = 0;
+            camera.Input(window);
+        }
+        
         glClearColor(0.85f, 0.85f, 0.85f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
-        camera.Input(window);
+        
         camera.updateMatrix(45.0f,0.1f,100.0f);
         
         glStencilFunc(GL_ALWAYS,1,0xFF);
